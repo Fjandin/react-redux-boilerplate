@@ -9,12 +9,7 @@ let addNotification = createAction(notify.ADD_NOTIFICATION, (message) => ({id: D
     }
 }));
 
-let pushNotification = (message) => (dispatch) => {
-    dispatch(addNotification(message));
-};
-
 export default {
     addNotification: addNotification,
-    dismissNotification: dismissNotification,
-    pushNotification: pushNotification
+    dismissNotification: dismissNotification
 };
