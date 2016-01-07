@@ -5,16 +5,16 @@ import * as user from "store/constants/user";
 const lazyPromise = (method, ...args) => () => method(...args);
 
 export default {
-    login: createAction(user.USER_LOGIN, (username, password) => lazyPromise(userApiLogin, username, password), () => ({
+    login: createAction(user.LOGIN, (username, password) => lazyPromise(userApiLogin, username, password), () => ({
         pre: (dispatch, getState) => {
             if (getState().user.loading) {
                 return false;
             }
-            dispatch({type: user.USER_LOGIN_PENDING});
+            dispatch({type: user.LOGIN_PENDING});
             return true;
         }
     })),
-    logout: createAction(user.USER_LOGOUT)
+    logout: createAction(user.LOGOUT)
 };
 
 // TEMP MOCKS //

@@ -77,6 +77,9 @@ module.exports = {
     },
     devServer: {
         port: 1337,
-        contentBase: "./build"
+        contentBase: "./build",
+        historyApiFallback: {
+            index: "/index.html"
+        }
     }
 };
