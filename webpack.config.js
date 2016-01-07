@@ -58,7 +58,7 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(["build"]),
         new ExtractTextPlugin("[contenthash].css"),
-        new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}}),
+        // new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}}),
         new webpack.optimize.CommonsChunkPlugin("vendor", "vendor.[hash].js"),
         new HtmlWebpackPlugin({filename: "index.html", template: "./app/index.html", inject: true})
     ],

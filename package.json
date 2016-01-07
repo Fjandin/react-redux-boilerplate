@@ -25,6 +25,7 @@
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
     "react-mixin": "^3.0.3",
+    "react-redux": "^4.0.6",
     "react-router": "^1.0.2",
     "reduce-reducers": "^0.1.1",
     "redux": "^3.0.5",
@@ -32,6 +33,7 @@
     "redux-devtools": "^3.0.1",
     "redux-logger": "^2.3.1",
     "redux-promise": "^0.5.0",
+    "redux-simple-router": "^1.0.2",
     "remote-redux-devtools": "0.0.4"
   },
   "devDependencies": {

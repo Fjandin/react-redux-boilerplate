@@ -76,7 +76,7 @@
         // Variables (http://eslint.org/docs/rules/#variables)
         "no-catch-shadow": 2,
         "no-shadow-restricted-names": 2,
-        "no-shadow": 2,
+        "no-shadow": [2, {"allow": ["pushPath"]}],
         "no-undef-init": 2,
 
         "no-use-before-define": [1, "nofunc"],

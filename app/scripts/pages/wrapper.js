@@ -1,7 +1,5 @@
-import React from "react";
+import React from "react"; // eslint-disable-line
 
-export default class PageWrapper extends React.Component {
-    render() {
-        return <div>{this.props.children}</div>;
-    }
+export default function Wrapper({children}) {
+    return <div>{children}</div>;
 }
