@@ -2,10 +2,10 @@ import React from "react"; // eslint-disable-line
 import {pushPath} from "redux-simple-router";
 import {connect} from "react-redux";
 import actionsTodos from "store/actions/todos";
-
+import actionsNotify from "store/actions/notify";
 import User from "components/user";
 
-function PagePublicMain({user, todos, addTodo, toggleTodo, removeTodo, pushPath}) {
+function PagePublicMain({user, todos, notify, addTodo, toggleTodo, removeTodo, pushPath, addNotification}) {
     let addTodoButton;
     if (user.id) {
         addTodoButton = <button onClick={() => addTodo("todo text")}>Add todo</button>;
@@ -24,6 +24,13 @@ function PagePublicMain({user, todos, addTodo, toggleTodo, removeTodo, pushPath}
                 </li>
             )}
         </ul>
+        <hr/>
+        <button onClick={() => addNotification("Test notification")}>Add notification</button>
+        <ul>
+            {notify.map((notification) =>
+                <li key={notification.id}>{notification.message}</li>
+            )}
+        </ul>
         <hr />
         <a onClick={() => pushPath("/")}>Goto home</a>
         <hr />
@@ -31,9 +38,10 @@ function PagePublicMain({user, todos, addTodo, toggleTodo, removeTodo, pushPath}
     </div>;
 }
 
-export default connect((state) => ({todos: state.todos, user: state.user}), {
+export default connect((state) => ({todos: state.todos, user: state.user, notify: state.notify}), {
     pushPath,
     addTodo: actionsTodos.addTodo,
     toggleTodo: actionsTodos.toggleTodo,
-    removeTodo: actionsTodos.removeTodo
+    removeTodo: actionsTodos.removeTodo,
+    addNotification: actionsNotify.addNotification
 })(PagePublicMain);

@@ -9,6 +9,7 @@ import preMiddleware from "store/middleware/pre";
 import {routeReducer} from "redux-simple-router";
 import reducerUser from "store/reducers/user";
 import reducerTodos from "store/reducers/todos";
+import reducerNotify from "store/reducers/notify";
 
 // Logger (for config see: https://github.com/fcomb/redux-logger)
 const loggerMiddleware = createLogger({collapsed: true});
@@ -17,7 +18,8 @@ const loggerMiddleware = createLogger({collapsed: true});
 const reducer = combineReducers({
     routing: routeReducer,
     user: reducerUser,
-    todos: reducerTodos
+    todos: reducerTodos,
+    notify: reducerNotify
 });
 
 // Middlewares

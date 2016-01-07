@@ -24,9 +24,12 @@ const setTimeoutPromise = (interval) => {
     });
 };
 
-function userApiLogin() {
+function userApiLogin(username, password) {
     return setTimeoutPromise(500)
         .then(() => {
-            return {id: 1, name: "Name of the user"};
+            if (username === "user" && password === "demo") {
+                return {id: 1, name: username};
+            }
+            return Promise.reject({error: true, message: "Username and/or password incorrect."});
         });
 }

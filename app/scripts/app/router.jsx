@@ -4,7 +4,6 @@ import {Router} from "react-router";
 import {Provider} from "react-redux";
 import {createHistory} from "history";
 import {syncReduxAndRouter} from "redux-simple-router";
-import createStore from "store/store";
 
 // Main layout
 import PageWrapper from "pages/wrapper";
@@ -22,18 +21,17 @@ const routeConfig = autoHooks([{
 }]);
 
 // History
-const store = createStore({user: {id: 2, name: "test"}});
 const history = createHistory();
-syncReduxAndRouter(history, store);
 
 // Start router
-exports.start = function start() {
+export default function start(store) {
+    syncReduxAndRouter(history, store);
     ReactDom.render(
         <Provider store={store}>
             <Router history={history} routes={routeConfig} />
         </Provider>
     , document.getElementById("app"));
-};
+}
 
 // HELPERS
 function autoHooks(route) {

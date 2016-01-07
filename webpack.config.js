@@ -21,7 +21,7 @@ module.exports = {
     context: __dirname,
     devtool: "source-map",
     entry: {
-        app: "./app/scripts/app.js",
+        app: "./app/scripts/entry.js",
         vendor: modules
     },
     output: {
