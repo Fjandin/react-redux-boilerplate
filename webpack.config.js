@@ -1,5 +1,8 @@
+/* eslint "no-console": 0 */
+/* eslint "strict": 0 */
 "use strict";
 
+const fs = require("fs");
 const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -17,7 +20,29 @@ for (let moduleName in packageJson.dependencies) {
     }
 }
 
-module.exports = {
+// Helper for speeding things a bit up by using built/minified libs files
+const node_modules_dir = path.join(__dirname, "node_modules");
+let deps = [];
+const addMinifiedDep = (lib, lib_path) => {
+    let index = modules.findIndex((l) => l === lib);
+    if (index < 0) {
+        throw new Error("lib " + lib + " does not exist in package.json");
+    } else if (!fs.existsSync(path.join())) {
+        throw new Error("file " + lib_path + " does not exist");
+    }
+    modules[index] = lib_path;
+    deps.push(lib_path);
+};
+
+// Speed up build by using built files
+addMinifiedDep("babel-polyfill", "babel-polyfill/dist/polyfill.js");
+addMinifiedDep("react", "react/dist/react.js");
+addMinifiedDep("react-dom", "react-dom/dist/react-dom.js");
+addMinifiedDep("react-redux", "react-redux/dist/react-redux.js");
+addMinifiedDep("redux", "redux/dist/redux.js");
+addMinifiedDep("redux-logger", "redux-logger/dist/index.js");
+
+let config = {
     context: __dirname,
     devtool: "source-map",
     entry: {
@@ -29,6 +54,7 @@ module.exports = {
         filename: "[name].[hash].js"
     },
     module: {
+        noParse: [],
         /* preLoaders: [{
             test: /\.(?:css|jsx?)$/,
             loader: "source-map-loader",
@@ -53,6 +79,9 @@ module.exports = {
             query: {presets: ["es2015", "react"]},
             exclude: /node_modules/,
             cacheable: true
+        }, {
+            test: /\.svg$|\.woff2?$|\.ttf$|\.eot$/,
+            loader: "file"
         }]
     },
     plugins: [
@@ -63,6 +92,7 @@ module.exports = {
         new HtmlWebpackPlugin({filename: "index.html", template: "./app/index.html", inject: true})
     ],
     resolve: {
+        alias: {},
         root: [
             path.join(__dirname, "app"),
             path.join(__dirname, "app/scripts")
@@ -83,3 +113,10 @@ module.exports = {
         }
     }
 };
+
+deps.forEach((dep) => {
+    config.resolve.alias[dep.split(path.sep)[0]] = dep;
+    config.module.noParse.push(dep);
+});
+
+module.exports = config;
