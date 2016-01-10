@@ -1,9 +1,15 @@
 // Reset css
 @import "modules/etc/reset";
+@import "modules/icons/icons";
 
 body {
     font-family: Helvetica;
     font-size: 14px;
     color: #333;
     margin: 20px;
+}
+
+h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
 }
