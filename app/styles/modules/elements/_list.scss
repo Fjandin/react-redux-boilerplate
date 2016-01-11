@@ -1,0 +1,12 @@
+.list {
+    border: 1px solid #DDD;
+    > li {
+        height: 40px;
+        line-height: 40px;
+        padding: 0 10px;
+        border-bottom: 1px solid #DDD;
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+}

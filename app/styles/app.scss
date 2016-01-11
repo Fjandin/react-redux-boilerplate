@@ -2,14 +2,37 @@
 @import "modules/etc/reset";
 @import "modules/icons/icons";
 
+@import "modules/elements/list";
+
+* {
+    outline: none;
+}
+
 body {
     font-family: Helvetica;
     font-size: 14px;
-    color: #333;
-    margin: 20px;
+    color: #222;
+}
+
+header.main {
+    background: #EEE;
+    padding: 20px;
+    border-bottom: 1px solid #DDD;
+}
+
+button {
+    border: 1px solid #DDD;
+    background: #EEE;
+    border-radius: 3px;
+    & + button {
+        margin-left: 5px;
+    }
+}
+
+div.content-body {
+    padding: 20px;
 }
 
 h1 {
     font-size: 48px;
-    margin-bottom: 20px;
 }
