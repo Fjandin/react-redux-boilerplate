@@ -26,8 +26,8 @@ export default handleActions({
             return state;
         }
     },
-    [user.LOGOUT]: (state) => {
+    [user.LOGOUT]: () => {
         setTimeout(() => store.dispatch(actionsNotify.addNotification("You are now logged out")));
-        return state;
+        return [];
     }
 }, []);
