@@ -100,33 +100,19 @@ export class Modal extends BaseComponent {
     }
 }
 
-class DialogConfirm extends BaseComponent {
-    constructor() {
-        super();
-        this._bind("ok", "cancel");
-    }
-    ok() {
-        this.props._Promise && this.props._Promise.resolve();
-    }
-    cancel() {
-        this.props._Promise && this.props._Promise.reject();
-    }
-    render() {
-        return (
-            <div className="dialog">
-                <div className="title">{this.props.title}</div>
-                <div className="content">
-                    {this.props.text}
-                </div>
-                <div className="buttons clearfix">
-                    <div className="right">
-                        <button className="form-button small text" onClick={this.cancel}>Angra</button>
-                        <button className="form-button small green" onClick={this.ok}>OK</button>
-                    </div>
-                </div>
+const DialogConfirm = ({_Promise, title, text}) => (
+    <div className="dialog">
+        <div className="title">{title}</div>
+        <div className="content">
+            {text}
+        </div>
+        <div className="buttons clearfix">
+            <div className="right">
+                <button className="form-button small text" onClick={() => _Promise && _Promise.resolve()}>Angra</button>
+                <button className="form-button small green" onClick={() => _Promise && _Promise.reject()}>OK</button>
             </div>
-        );
-    }
-}
+        </div>
+    </div>
+);
 
 export default Modal;
