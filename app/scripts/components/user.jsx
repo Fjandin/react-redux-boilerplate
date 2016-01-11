@@ -1,17 +1,17 @@
 import React from "react"; // eslint-disable-line
 import {connect} from "react-redux";
 import actionsUser from "store/actions/user";
+import {If, Else} from "components/if";
 
 function User({user, login, logout}) {
-    if (!user.id) {
-        return <div key="component_user">
+    return (
+        <If cond={user.id}>
+            id: {user.id}, name: {user.name}
+            <button onClick={logout}>Logout</button>
+        <Else />
             <button onClick={() => login("user", "demo")} disabled={user.loading}>{user.loading ? "Logging in..." : "Login"}</button>
-        </div>;
-    }
-    return <div key="component_user">
-        id: {user.id}, name: {user.name}
-        <button onClick={logout}>Logout</button>
-    </div>;
+        </If>
+    );
 }
 
 export default connect(

@@ -4,37 +4,49 @@ import {connect} from "react-redux";
 import actionsTodos from "store/actions/todos";
 import actionsNotify from "store/actions/notify";
 import User from "components/user";
+import {If, Else} from "components/if";
 
 function PagePublicMain({user, todos, notify, addTodo, toggleTodo, removeTodo, pushPath, addNotification}) {
-    let addTodoButton;
-    if (user.id) {
-        addTodoButton = <button onClick={() => addTodo("todo text")}>Add todo</button>;
-    }
     return <div>
-        <h1>Main</h1>
-        <User />
-        <hr />
-        {addTodoButton}
-        <ul>
-            {todos.map((todo) =>
-                <li key={todo.id}>
-                    <button onClick={() => removeTodo(todo.id)}>Remove</button>
-                    <button onClick={() => toggleTodo(todo.id)}>Toggle completed</button>
-                    {todo.completed ? "V " : ""}{todo.text}
-                </li>
-            )}
-        </ul>
-        <hr/>
-        <button onClick={() => addNotification("Test notification")}>Add notification</button>
-        <ul>
-            {notify.map((notification) =>
-                <li key={notification.id}>{notification.message}</li>
-            )}
-        </ul>
-        <hr />
-        <a onClick={() => pushPath("/")}>Goto home</a>
-        <hr />
-        <a onClick={() => pushPath("/main")}>Goto main</a>
+        <header className="main">
+            <h1 style={{display: "inline-block"}}>
+                <span className="icon-upload" style={{verticalAlign: 3, color: "red"}}></span> Main
+            </h1>
+            <div style={{float: "right"}}>
+                <User />
+            </div>
+        </header>
+        <div className="content-body">
+            <If cond={user.id}>
+                <button onClick={() => addTodo("todo text")} style={{marginBottom: 10}}>Add todo</button>
+                <If cond={todos.length}>
+                    <ul className="list">
+                        {todos.map((todo) =>
+                            <li key={todo.id}>
+                                <button onClick={() => removeTodo(todo.id)}><span className="icon-upload"></span> Remove</button>
+                                <button onClick={() => toggleTodo(todo.id)}>Toggle completed</button>
+                                {todo.completed ? " X " : " "}{todo.text}
+                            </li>
+                        )}
+                    </ul>
+                <Else />
+                    No todo items
+                </If>
+            <Else />
+                You need to be logged in to add todo items
+            </If>
+            <hr/>
+            <button onClick={() => addNotification("Test notification")}>Add notification</button>
+            <ul>
+                {notify.map((notification) =>
+                    <li key={notification.id}>{notification.message}</li>
+                )}
+            </ul>
+            <hr />
+            <a onClick={() => pushPath("/")}>Goto home</a>
+            <hr />
+            <a onClick={() => pushPath("/main")}>Goto main</a>
+        </div>
     </div>;
 }
 
