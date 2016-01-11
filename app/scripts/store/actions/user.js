@@ -28,7 +28,7 @@ function userApiLogin(username, password) {
     return setTimeoutPromise(500)
         .then(() => {
             if (username === "user" && password === "demo") {
-                return {id: 1, name: username};
+                return {id: 1, name: username, token: "1234"};
             }
             return Promise.reject({error: true, message: "Username and/or password incorrect."});
         });
