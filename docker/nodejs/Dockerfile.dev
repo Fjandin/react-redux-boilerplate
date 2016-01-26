@@ -1,0 +1,11 @@
+FROM node:4.2.6
+
+RUN npm install -g webpack webpack-dev-server
+
+EXPOSE 1337
+
+VOLUME /mnt/
+
+WORKDIR /mnt/
+
+CMD sh run.sh

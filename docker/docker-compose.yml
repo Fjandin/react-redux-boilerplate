@@ -1,0 +1,11 @@
+r_nodejs:
+    build: ./nodejs/
+    dockerfile: Dockerfile.dev
+    ports:
+        - 1337:1337
+    volumes:
+        - ./../webpack.config.js:/mnt/webpack.config.js:ro
+        - ./../package.json:/mnt/package.json:ro
+        - ./../app:/mnt/app:ro
+        - ./../node_modules_docker:/mnt/node_modules
+        - ./run.sh:/mnt/run.sh

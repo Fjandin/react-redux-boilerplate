@@ -10,7 +10,7 @@ function PagePublicMain({user, todos, notify, addTodo, toggleTodo, removeTodo, p
     return <div>
         <header className="main">
             <h1 style={{display: "inline-block"}}>
-                <span className="icon-upload" style={{verticalAlign: 3, color: "red"}}></span> Main
+                <span className="icon-upload" style={{verticalAlign: 3, color: "orange"}}></span> Main
             </h1>
             <div style={{float: "right"}}>
                 <User />

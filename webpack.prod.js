@@ -6,6 +6,7 @@ const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 // Build modules array from package.json
 const packageJson = require("./package.json");
@@ -20,15 +21,15 @@ for (let moduleName in packageJson.dependencies) {
 
 let config = {
     context: __dirname,
-    devtool: "source-map",
+    devtool: "hidden-source-map",
     entry: {
         app: "./app/scripts/entry.js",
         vendor: modules
     },
     output: {
-        path: path.join(__dirname, "build"),
+        path: path.join(__dirname, "dist"),
         publicPath: "/",
-        filename: "[name].[contenthash].js"
+        filename: "[name].[hash].js"
     },
     module: {
         noParse: [],
@@ -42,23 +43,24 @@ let config = {
             exclude: /node_modules/
         }, {
             test: /\.scss$/,
-            loader: "style-loader!css-loader?sourceMap!autoprefixer?browsers=last 2 version!sass-loader",
+            loader: ExtractTextPlugin.extract("style-loader", "css-loader?sourceMap!autoprefixer?browsers=last 2 version!sass-loader"),
             exclude: /node_modules/
         }, {
             test: /\.jsx?$/,
-            loaders: ["react-hot-loader", "babel-loader?presets[]=es2015,presets[]=react"],
-            exclude: /node_modules/,
-            include: path.join(__dirname, "app")
+            loader: "babel-loader?presets[]=es2015,presets[]=react",
+            exclude: /node_modules/
         }, {
             test: /\.svg$|\.woff2?$|\.ttf$|\.eot$/,
             loader: "file"
         }]
     },
     plugins: [
-        new CleanWebpackPlugin(["build"]),
-        new webpack.optimize.CommonsChunkPlugin("vendor", "vendor.[contenthash].js"),
-        new HtmlWebpackPlugin({filename: "index.html", template: "./app/index.html", inject: true}),
-        new webpack.DefinePlugin({"process.env.NODE_ENV": JSON.stringify("development")})
+        new CleanWebpackPlugin(["dist"]),
+        new ExtractTextPlugin("app.[contenthash].css"),
+        new webpack.optimize.CommonsChunkPlugin("vendor", "vendor.[hash].js"),
+        new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}}),
+        new HtmlWebpackPlugin({filename: "index.html", template: "./app/index.html"}),
+        new webpack.DefinePlugin({"process.env.NODE_ENV": JSON.stringify("production")})
     ],
     resolve: {
         alias: {},
@@ -72,18 +74,7 @@ let config = {
         extensions: ["", ".js", ".jsx", ".scss", ".html"]
     },
     stats: {
-        colors: true, modules: true, reasons: true
-    },
-    watchOptions: {
-        poll: true
-    },
-    devServer: {
-        port: 1337,
-        host: "0.0.0.0",
-        contentBase: "./build",
-        historyApiFallback: {
-            index: "/index.html"
-        }
+        colors: false, modules: true, reasons: true
     }
 };
 
