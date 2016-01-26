@@ -1,5 +1,5 @@
 import React from "react"; // eslint-disable-line
-import {pushPath} from "redux-simple-router";
+import {push as pushPath} from "react-router-redux";
 import {connect} from "react-redux";
 import actionsTodos from "store/actions/todos";
 import actionsNotify from "store/actions/notify";
@@ -25,7 +25,7 @@ function PagePublicMain({user, todos, notify, addTodo, toggleTodo, removeTodo, p
                             <li key={todo.id}>
                                 <button onClick={() => removeTodo(todo.id)}><span className="icon-upload"></span> Remove</button>
                                 <button onClick={() => toggleTodo(todo.id)}>Toggle completed</button>
-                                {todo.completed ? " X " : " "}{todo.text}
+                                {todo.completed ? " V " : " "}{todo.text}
                             </li>
                         )}
                     </ul>

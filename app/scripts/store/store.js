@@ -6,10 +6,12 @@ import promiseMiddleware from "redux-promise";
 import preMiddleware from "store/middleware/pre";
 
 // Import reducers
-import {routeReducer} from "redux-simple-router";
 import reducerUser from "store/reducers/user";
 import reducerTodos from "store/reducers/todos";
 import reducerNotify from "store/reducers/notify";
+
+import {browserHistory} from "react-router";
+import {syncHistory, routeReducer} from "react-router-redux";
 
 // Logger (for config see: https://github.com/fcomb/redux-logger)
 const loggerMiddleware = createLogger({collapsed: true});
@@ -22,8 +24,11 @@ const reducer = combineReducers({
     notify: reducerNotify
 });
 
+// history / router middleware
+const routerMiddleware = syncHistory(browserHistory);
+
 // Middlewares
-const middleware = [preMiddleware, promiseMiddleware, loggerMiddleware];
+const middleware = [routerMiddleware, preMiddleware, promiseMiddleware, loggerMiddleware];
 
 const finalCreateStore = compose(
     applyMiddleware(...middleware),
